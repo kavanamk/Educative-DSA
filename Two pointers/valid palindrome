@@ -13,9 +13,59 @@ def is_palindrome(s):
 
     # Correct the loop condition to stop when pointers cross or meet
     while p1 < p2:
+        if s[p1].isalnum():
+             p1+=1
+        if s[p2].isalnum():
+             p2-=1
         if s[p1].lower() != s[p2].lower():
             return False
         p1 += 1
         p2 -= 1
 
     return True
+
+
+
+
+#version 2
+
+
+def is_palindrome(s):
+    left, right = 0, len(s) - 1
+
+    while left < right:
+        # Move the left pointer forward if it's on a non-alphanumeric character
+        while left < right and not s[left].isalnum():
+            print(f"\tSkipping non-alphanumeric at left: '{s[left]}' (index {left})")
+            left += 1
+
+        # Move the right pointer backward if it's on a non-alphanumeric character
+        while left < right and not s[right].isalnum():
+            print(f"\tSkipping non-alphanumeric at right: '{s[right]}' (index {right})")
+            right -= 1
+
+        # Print the current positions of left and right
+        print(f"\tLeft -> '{s[left]}' (index {left}), Right -> '{s[right]}' (index {right})")
+
+        # Move the pointers inward
+        left += 1
+        right -= 1
+
+
+def main():
+    test_cases = [
+        "A man, a plan, a canal: Panama",
+        "race a car",
+        "1A@2!3 23!2@a1",
+        "No 'x' in Nixon",
+        "12321",
+    ]
+
+    for i in test_cases:
+        print("\n\tString:", i,"\n")
+        is_palindrome(i)
+        print("-" * 100)
+
+
+if __name__ == "__main__":
+    main()
