@@ -1,0 +1,21 @@
+def is_palindrome(s):
+    """
+    Check if a string is a palindrome, ignoring case.
+
+    :param s: str - The input string
+    :return: bool - True if the string is a palindrome, False otherwise
+    """
+    p1 = 0
+    p2 = len(s) - 1
+
+    if len(s) == 0 or len(s) == 1:
+        return True
+
+    # Correct the loop condition to stop when pointers cross or meet
+    while p1 < p2:
+        if s[p1].lower() != s[p2].lower():
+            return False
+        p1 += 1
+        p2 -= 1
+
+    return True
