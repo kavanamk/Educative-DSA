@@ -1,0 +1,17 @@
+def remove_nth_last_node(head, n):
+    
+    p1=head
+    p2=head
+    
+    for i in range(n):
+        if p2.next is None:  
+            return head.next
+        p2 = p2.next
+        
+    while p2.next!=None:
+        p1=p1.next
+        p2=p2.next
+        
+    p1.next=p1.next.next
+    
+    return head
