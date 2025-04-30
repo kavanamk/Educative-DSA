@@ -1,0 +1,92 @@
+def three_sum(nums):
+    nums.sort()
+    result = []
+    n = len(nums)
+
+    for pivot in range(n - 2):
+        if nums[pivot] > 0:
+            break
+        if pivot > 0 and nums[pivot] == nums[pivot - 1]:
+            continue
+        low, high = pivot + 1, n - 1
+        while low < high:
+            total = nums[pivot] + nums[low] + nums[high]
+            if total < 0:
+                low += 1
+            elif total > 0:
+                high -= 1
+            else:
+                result.append([nums[pivot], nums[low], nums[high]])
+                low += 1
+                high -= 1
+                while low < high and nums[low] == nums[low - 1]:
+                    low += 1
+                while low < high and nums[high] == nums[high + 1]:
+                    high -= 1
+    return result
+
+# Driver code
+def main():
+    test_cases = [
+        [-1, 0, 1, 2, -1, -4],
+        [1, 2, 3, 4, 5],
+        [0, 0, 0, 0],
+        [-4, -1, -1, 0, 1, 2, 2],
+        [-10, -7, -3, -1, 0, 3, 7, 10],
+        [-3, -5, -7, -9]
+    ]
+
+    for idx, nums in enumerate(test_cases, 1):
+        print(f"\nTest Case {idx}:\n\t Input:  {nums}")
+        result = three_sum(nums)
+        print(f"\t Output: {result}")
+        print("-" * 100)
+
+if __name__ == "__main__":
+    main()
+Solution#
+We will use the two pointers pattern to solve the problem. This method requires sorting the input array, so our first step is sorting the array.
+
+Sorting the array facilitates the two-pointers technique and makes it easy to handle duplicate values. As duplicate values are next to each other in a sorted array, we can skip over them to ensure the result contains unique triplets.
+
+Once the array is sorted, we iterate over it. For each iteration, we select a “pivot” element nums[i] and focus on the elements to the right of it. The goal is to find all pairs of numbers that sum to -nums[i]. Adding this pair to the pivot ensures the total sum equals zero.
+
+The two pointers approach involves positioning one pointer just after the pivot (low) and the other at the array’s end (high). By computing the sum of these pointers and the pivot, adjustments are made: incrementing `low` if the sum is too small or decrementing high if it’s too large. When the sum equals zero, the triplet is added to the result, and both pointers are adjusted, skipping duplicates. This strategy focuses on efficient exploration, guiding the sum toward zero.
+
+Now, let’s look at the steps of the solution:
+
+Sort the input array, nums, in ascending order.
+
+Create an empty list, result, to store the unique triplets.
+
+Use a for loop to iterate over the array, treating each element nums[i] as the pivot.
+
+Start the iteration at index 0 until the third-to-last element inclusive (because at least three elements are needed for a triplet).
+
+Initialize two pointers:
+
+low starts at i + 1 (the element after the pivot).
+
+high starts at the last element of the array.
+
+While low is less than high, compute the sum of the pivot, nums[low], and nums[high]:
+
+If the sum is less than zero, increment low to increase the sum.
+
+If the sum is greater than zero, decrement high to decrease the sum.
+
+If the sum equals zero:
+
+Add the triplet [nums[i], nums[low], nums[high]] to the result.
+
+Move both pointers to their next positions (low++ and high--).
+
+Skip duplicates at the new low and high positions to ensure unique triplets.
+
+If nums[i] is the same as nums[i - 1] (for i > 0), skip the current iteration.
+
+If nums[i] > 0, break the loop.
+
+Once the loop completes, return the result list containing all unique triplets.
+
+Let’s look at the following illustration to get a better understanding of the solution:
