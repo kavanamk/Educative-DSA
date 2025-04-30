@@ -1,0 +1,69 @@
+def valid_word_abbreviation(word, abbr):
+    word_index, abbr_index = 0, 0
+
+    while abbr_index < len(abbr):
+        if abbr[abbr_index].isdigit():
+            if abbr[abbr_index] == '0':
+                return False
+            num = 0
+    
+            while abbr_index < len(abbr) and abbr[abbr_index].isdigit():
+                num = num * 10 + int(abbr[abbr_index])
+                abbr_index += 1
+            word_index += num
+        else:
+            if word_index >= len(word) or word[word_index] != abbr[abbr_index]:
+                return False
+            word_index += 1
+            abbr_index += 1
+
+    return word_index == len(word) and abbr_index == len(abbr)
+
+
+def main():
+    words = ["a", "a", "abcdefghijklmnopqrst", "abcdefghijklmnopqrst", "word", "internationalization", "localization"]
+    abbreviations = ["a", "b", "a18t", "a19t", "w0rd", "i18n", "l12n"]
+
+    for i in range(len(words)):
+        print(i + 1, ".\t word: '", words[i], "'", sep="")
+        print("\t abbr: ", abbreviations[i], "'", sep="")
+        print(f"\n\t Is '{abbreviations[i]}' a valid abbreviation for the word '{words[i]}'? ", valid_word_abbreviation(words[i], abbreviations[i]), sep="")
+        print("-" * 100)
+
+if __name__ == '__main__':
+    main()
+
+
+
+Solution#
+The idea behind this problem is to match each character in the abbreviation, abbr, exactly to the corresponding character in the word. We incrementally iterate over both strings, ensuring they match at each step. To achieve this, we can use the two-pointer technique. We initialize one pointer to the start of the word and the other to the start of the abbreviation.
+
+The two-pointer technique is efficient for solving this problem because it effectively helps in character matching, handling leading zero cases, and skipping the exact number of characters in word as found in abbr.
+
+By maintaining these checks and iterating over both strings, we ensure that the abbreviation correctly represents the word.
+
+Having said this, here’s the algorithm that we’ll use to solve the given problem:
+
+We create two pointers: word_index and abbr_index, both initialized to 
+0
+0
+.
+
+Next, we iterate through the abbreviations string while abbr_index is less than the length of abbr:
+
+If a digit is encountered at abbr[abbr_index]:
+
+We then check if that digit is a leading zero. If it is, we return FALSE.
+
+Next, we calculate the number from abbr and skip that many characters in word.
+
+In case the value at index abbr[abbr_index] is a letter:
+
+We then check for characters that match with word[word_index]. If the characters don’t match in both strings, we return FALSE.
+
+Next, we increment both word_index and abbr_index by 
+1
+1
+.
+
+Finally, we ensure whether both pointers, word_index and abbr_index, have reached the end of their strings. If they have, we return TRUE. Otherwise, we return FALSE.
