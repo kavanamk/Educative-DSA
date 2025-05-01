@@ -1,0 +1,60 @@
+def min_moves_to_make_palindrome(s):
+    s = list(s)
+    
+    moves = 0
+
+    i, j = 0, len(s) - 1
+    while i < j:
+        k = j
+        while k > i:
+            if s[i] == s[k]:
+                for m in range(k, j):
+                    s[m], s[m + 1] = s[m + 1], s[m]
+                    moves += 1
+                j -= 1
+                break
+            k -= 1
+        if k == i:
+            moves += len(s) // 2 - i
+        i += 1
+
+    return moves
+
+# Driver code
+def main():
+    strings = ["ccxx", "arcacer", "w", "ooooooo", "eggeekgbbeg"]
+    
+    for index, string in enumerate(strings):
+        print(f"{index + 1}.\ts: {string}")
+        print(f"\tMoves: {min_moves_to_make_palindrome(string)}")
+        print('-' * 100)
+
+if __name__ == "__main__":
+    main()
+
+
+
+Using the above intuition, the solution can be implemented as follows:
+
+Initialize a variable, moves, with 
+0
+0
+ to keep track of the number of swaps required.
+
+Initialize two pointers, i at the beginning of the string and j at the end of the string, to traverse the string from both ends toward the center.
+
+At each iteration, the goal is to match the character at position i with the corresponding character at position j.
+
+Start an inner loop with k initialized to j, which represents the current character at the end of the string. It moves backward from j to i to find a matching character for s[i].
+
+The loop checks whether s[i] == s[k]. If a match is found, we keep swapping s[k] with s[k+1] until k reaches j. For each swap, increment the moves counter.
+
+After the character is moved to position j, decrement j to continue processing the next character from the end.
+
+If no match is found by the time k reaches i (i.e., k == i), it means that the character at i is the center character of an odd-length palindrome.
+
+In this case, the number of moves is incremented by (s.size() / 2) - i, which is the number of moves required to bring this unique character to the center of the string. In this case, we don't swap any characters; just update moves.
+
+After processing the entire string, return the value of moves, which represents the minimum number of moves needed to transform the input string into a palindrome.
+
+Let’s look at the following illustration to get a better understanding of the solution:
