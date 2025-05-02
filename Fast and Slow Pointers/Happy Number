@@ -1,0 +1,16 @@
+def sum_of_square_of_digits(n):
+    return sum(int(d)**2 for d in str(n))
+
+def is_happy_number(n):
+    slow = n
+    fast = sum_of_square_of_digits(n)
+
+    while fast != 1 and slow != fast:
+        slow = sum_of_square_of_digits(slow)
+        fast = sum_of_square_of_digits(sum_of_square_of_digits(fast))  # Fast moves two steps
+
+    return fast == 1
+
+# Test
+print(is_happy_number(2))  # False
+print(is_happy_number(19))  # True
