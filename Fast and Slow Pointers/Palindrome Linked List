@@ -1,0 +1,45 @@
+def print_linked_list(head):
+    while head:
+        print(head.val)
+        head = head.next
+
+def reverse_list(head):
+    prev = None
+    current = head
+
+    while current:
+        next_node = current.next
+        current.next = prev
+        prev = current
+        current = next_node
+
+    return prev
+
+def palindrome(head):
+    slow = head
+    fast = head
+
+    # Find midpoint
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+
+    # Reverse second half
+    mid = reverse_list(slow)
+
+    # Compare both halves
+    fast = mid
+    slow = head
+    result = True
+
+    while fast:
+        if slow.val != fast.val:
+            result = False
+            break
+        slow = slow.next
+        fast = fast.next
+
+    # Restore second half
+    reverse_list(mid)
+
+    return result
