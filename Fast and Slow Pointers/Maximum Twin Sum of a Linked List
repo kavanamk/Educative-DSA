@@ -1,0 +1,37 @@
+def reverse_list(head):
+    prev = None
+    cur = head
+    while cur:
+        nxt = cur.next
+        cur.next = prev
+        prev = cur
+        cur = nxt
+    return prev
+
+def twin_sum(head):
+    sum_list = []
+
+    slow = head
+    fast = head
+
+    # Find midpoint
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+
+    # Reverse second half
+    mid = reverse_list(slow)
+
+    # Debug print
+    # print_linked_list(head)
+
+    fast = mid
+    slow = head
+
+    while fast:
+        cur_sum = slow.val + fast.val
+        sum_list.append(cur_sum)
+        slow = slow.next
+        fast = fast.next  
+
+    return max(sum_list)
