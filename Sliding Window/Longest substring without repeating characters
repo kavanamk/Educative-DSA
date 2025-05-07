@@ -1,0 +1,33 @@
+Longest substring without repeating characters: Given a string, find the length of the longest substring without repeating characters.
+
+def length_of_longest_substring(s):
+    n = len(s)
+    left = 0
+    right = 0
+    seen = set()
+    max_len = 0
+
+    while right < n:
+        if s[right] not in seen:
+            seen.add(s[right])
+            max_len = max(max_len, right - left + 1)
+            right += 1
+        else:
+            # Remove characters from the left until s[right] is not in seen
+            while s[right] in seen:
+                seen.remove(s[left])
+                left += 1
+
+    return max_len
+
+s = "abcabcbb"
+print(length_of_longest_substring(s))  # Output: 3
+
+s = "bbbbb"
+print(length_of_longest_substring(s))  # Output: 1
+
+s = "pwwkew"
+print(length_of_longest_substring(s))  # Output: 3
+
+s = ""
+print(length_of_longest_substring(s))  # Output: 0
