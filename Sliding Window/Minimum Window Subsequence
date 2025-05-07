@@ -1,0 +1,40 @@
+
+Here is the solution summary:
+
+Iterate through the first string, matching characters to the second string in order.
+
+When a match is found, move both pointers forward. If no match is found, continue in the first string.
+
+Once all characters of the second string are found, adjust the subsequence by moving backward in the first string to minimize its size.
+
+Calculate the length of the subsequence and update the smallest subsequence if needed.
+
+Continue searching for smaller subsequences by moving forward in the first string.
+
+Repeat until the entire first string is processed.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+def min_window(str1, str2):
+    size_str1, size_str2 = len(str1), len(str2)
+    min_sub_len = float('inf')
+    index_s1, index_s2 = 0, 0
+    min_subsequence = ""
+    while index_s1 < size_str1:
+        if str1[index_s1] == str2[index_s2]:
+            index_s2 += 1
+            if index_s2 == size_str2:
+                start, end = index_s1, index_s1
+                index_s2 -= 1
+                while index_s2 >= 0:
+                    if str1[start] == str2[index_s2]:
+                        index_s2 -= 1
+                    start -= 1
+                start += 1
+                if end - start < min_sub_len:
+                    min_sub_len = end - start
+                    min_subsequence = str1[start:end+1]
+                index_s1 = start
+                index_s2 = 0
+        index_s1 += 1
+    return min_subsequence
