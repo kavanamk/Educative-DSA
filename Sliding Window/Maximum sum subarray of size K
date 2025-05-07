@@ -1,0 +1,15 @@
+def max_subarray_size_k(arr,k):
+    w1,w2=0,k
+    max_sum=sum(arr[w1:w2])
+    while w2<len(arr):
+        w1+=1
+        w2+=1
+        max_sum=max(max_sum,sum(arr[w1:w2]))
+    return max_sum
+        
+        
+    
+    
+arr=[4,2,-1,9,7,-3,5]
+k=4
+print(max_subarray_size_k(arr,k))
