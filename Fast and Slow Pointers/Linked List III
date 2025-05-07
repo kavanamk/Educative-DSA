@@ -1,0 +1,65 @@
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+         
+def print_linked_list(head):
+    while head:
+        print(head.val)
+        head = head.next
+
+def count_cycle_length(head):
+    
+    #find cycle
+    ans=0
+    slow=head
+    fast=head
+    while fast and fast.next:
+        slow=slow.next
+        fast=fast.next.next
+        if slow==fast:
+            #print(slow.val)
+            break
+    if fast==None or fast.next==None:
+        return 0
+        
+    #now move it one at a time
+    slow=head
+    while slow!=fast:
+        slow=slow.next
+        fast=fast.next
+    
+    ans=1
+        
+    #find end and make it null
+    while fast.next!=slow:
+        ans+=1
+        fast=fast.next
+    
+
+    return ans
+
+
+        
+            
+
+# Test case
+l1 = ListNode(2)
+l2 = ListNode(5)
+l3 = ListNode(7)
+l4 = ListNode(4)
+l5 = ListNode(8)
+l6=ListNode(9)
+l7=ListNode(10)
+
+
+l1.next = l2
+l2.next = l3
+l3.next = l4
+l4.next = l5
+l5.next =l6
+l6.next=l7
+l7.next=l3
+
+
+print(count_cycle_length(l1))
