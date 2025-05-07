@@ -1,0 +1,22 @@
+def find_max_sliding_window(nums, w):
+
+    # Replace this placeholder return statement with your code
+    ans=[]
+    left=0
+    right=w
+    n=len(nums)
+ 
+    if n==0 or n==1:
+        return nums
+    
+    while right<=n:
+        ans.append(max(nums[left:right]))
+        left+=1
+        right+=1
+
+    return ans
+
+
+nums = [-4, 5, 4, -4, 4, 6, 7, 20]
+w=2
+print(find_max_sliding_window(nums, w))
