@@ -1,0 +1,30 @@
+def findRepeatedDnaSequences(s):
+    
+    # Replace this placeholder return statement with your code 
+    left=0
+    right=10
+    d={}
+    ans=[]
+    n=len(s)
+    
+    if len(s)<10:
+        return []
+    
+    while right!=n:
+        subseq=s[left:right]
+        if subseq not in d:
+            d[subseq]=1
+        else:
+            d[subseq]+=1
+        left+=1
+        right+=1
+        
+    for key,val in d.items():
+        if val>=2:
+            ans.append(key)
+        
+    return ans
+
+
+s = "ATATTGGCCAATTGGCCAATTCGC"
+print(findRepeatedDnaSequences(s))
