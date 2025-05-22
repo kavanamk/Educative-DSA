@@ -1,0 +1,20 @@
+class RequestLogger:
+    def __init__(self, time_limit):
+        self.d = {}  # stores request -> last accepted timestamp
+        self.time_limit = time_limit
+
+    def message_request_decision(self, timestamp, request):
+        if request not in self.d:
+            self.d[request] = timestamp
+            return True
+        elif timestamp - self.d[request] >= self.time_limit:
+            self.d[request] = timestamp  # update last accepted time
+            return True
+        else:
+            return False
+logger = RequestLogger(10)
+
+print(logger.message_request_decision(1, "ping"))   # True (new)
+print(logger.message_request_decision(5, "ping"))   # False (within 10s)
+print(logger.message_request_decision(12, "ping"))  # True (after 10s)
+print(logger.message_request_decision(15, "pong"))  # True (new request)
