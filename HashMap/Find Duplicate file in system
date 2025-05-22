@@ -1,0 +1,32 @@
+def find_duplicate(paths):
+    # Dictionary to store content -> [full file paths]
+    content_map = {}
+
+    for path in paths:
+        parts = path.split()
+        dir_path = parts[0]
+        files = parts[1:]
+
+        for file in files:
+            filename, content = file.split('(')
+            content = content[:-1]  # remove the closing ')'
+            full_path = f"{dir_path}/{filename}"
+
+            if content not in content_map:
+                content_map[content] = []
+            content_map[content].append(full_path)
+
+    # Only return entries with duplicate content (length > 1)
+    return [files for files in content_map.values() if len(files) > 1]
+
+# Example input
+paths = [
+    "home/user1 1.txt(hello) 2.txt(world)",
+    "home/user2 3.txt(hello)",
+    "home/user3/docs 4.txt(world)",
+    "home/user3/docs 5.txt(greetings)"
+]
+
+# Get list of lists of duplicate file paths
+duplicates = find_duplicate(paths)
+print(duplicates)
