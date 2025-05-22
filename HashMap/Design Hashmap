@@ -1,0 +1,21 @@
+class DesignHashMap():
+    def __init__(self):
+        self.d = {}
+
+    def put(self, key, value):
+        self.d[key] = value
+
+    def get(self, key):
+        return self.d.get(key, -1)  # returns -1 if key not found
+
+    def remove(self, key):
+        self.d.pop(key, None)  # avoids KeyError if key doesn't exist
+h = DesignHashMap()
+h.put(1, 10)
+h.put(2, 20)
+
+print(h.get(1))  # 10
+print(h.get(3))  # -1
+
+h.remove(1)
+print(h.get(1))  # -1
