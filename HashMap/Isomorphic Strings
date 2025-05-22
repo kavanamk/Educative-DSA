@@ -1,0 +1,23 @@
+def is_isomorphic(string1, string2):
+    if len(string1) != len(string2):
+        return False
+
+    map1 = {}
+    map2 = {}
+
+    for s1, s2 in zip(string1, string2):
+        if s1 not in map1:
+            map1[s1] = s2
+        elif map1[s1] != s2:
+            return False
+
+        if s2 not in map2:
+            map2[s2] = s1
+        elif map2[s2] != s1:
+            return False
+
+    return True
+
+print(is_isomorphic("egg", "add"))      # True
+print(is_isomorphic("foo", "bar"))      # False
+print(is_isomorphic("paper", "title"))  # True
