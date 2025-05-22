@@ -1,0 +1,35 @@
+from heapq import *
+
+class MedianOfStream:
+    def __init__(self):
+        self.left_heap = []   # max-heap (store as -num)
+        self.right_heap = []  # min-heap
+
+    def insert_num(self, num):
+        # Step 1: Add to max-heap (negate to simulate max)
+        heappush(self.left_heap, -num)
+
+        # Step 2: Ensure order property (max-left ≤ min-right)
+        if self.right_heap and -self.left_heap[0] > self.right_heap[0]:
+            val = -heappop(self.left_heap)
+            heappush(self.right_heap, val)
+
+        # Step 3: Balance size (left_heap can only be larger by 1)
+        if len(self.left_heap) > len(self.right_heap) + 1:
+            val = -heappop(self.left_heap)
+            heappush(self.right_heap, val)
+        elif len(self.right_heap) > len(self.left_heap):
+            val = heappop(self.right_heap)
+            heappush(self.left_heap, -val)
+
+    def find_median(self):
+        if len(self.left_heap) > len(self.right_heap):
+            return -self.left_heap[0]
+        else:
+            return (-self.left_heap[0] + self.right_heap[0]) / 2.0
+stream = MedianOfStream()
+stream.insert_num(1)
+stream.insert_num(2)
+print(stream.find_median())  # Output: 1.5
+stream.insert_num(3)
+print(stream.find_median())  # Output: 2.0
