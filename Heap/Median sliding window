@@ -1,0 +1,41 @@
+from heapq import *
+
+class Median:
+    def __init__(self):
+        self.left_heap = []   # max-heap (store as -num)
+        self.right_heap = []  # min-heap
+
+    def insert_nums(self, nums):
+        for num in nums:
+            heappush(self.left_heap, -num)
+            if self.right_heap and -self.left_heap[0] > self.right_heap[0]:
+                val = -heappop(self.left_heap)
+                heappush(self.right_heap, val)
+            if len(self.left_heap) > len(self.right_heap) + 1:
+                val = -heappop(self.left_heap)
+                heappush(self.right_heap, val)
+            elif len(self.right_heap) > len(self.left_heap):
+                val = heappop(self.right_heap)
+                heappush(self.left_heap, -val)
+
+    def get_median(self):
+        if len(self.left_heap) > len(self.right_heap):
+            return -self.left_heap[0]
+        else:
+            return (-self.left_heap[0] + self.right_heap[0]) / 2.0
+        
+    def median_sliding_window(self, nums, k):
+        ans = []
+        for i in range(len(nums) - k + 1):
+            window = nums[i:i+k]
+            self.left_heap = []
+            self.right_heap = []
+            self.insert_nums(window)
+            ans.append(self.get_median())
+        return ans
+
+# Test case
+nums = [1, 3, -1, -3, 5, 3, 6, 7]
+k = 5
+m = Median()
+print(m.median_sliding_window(nums, k))
