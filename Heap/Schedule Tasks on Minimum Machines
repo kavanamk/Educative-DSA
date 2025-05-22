@@ -1,0 +1,22 @@
+from heapq import *
+
+def minimum_machines(tasks):
+    # Sort by start time
+    tasks.sort()
+    
+    # Min-heap to track end times of machines
+    min_heap = []
+    
+    for start, end in tasks:
+        if min_heap and min_heap[0] <= start:
+            # Reuse a machine that’s done before the current task starts
+            heapreplace(min_heap, end)
+        else:
+            # Need a new machine
+            heappush(min_heap, end)
+    
+    return len(min_heap)
+
+# Test case
+tasks = [[1, 4], [3, 5], [6, 8], [7, 8]]
+print(minimum_machines(tasks))  # Output: 2
