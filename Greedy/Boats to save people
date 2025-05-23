@@ -1,0 +1,44 @@
+def rescue_boats(people, limit):
+    
+    # Replace this placeholder return statement with your code
+    n=len(people)
+    boats=[0]
+    cur_idx=0
+    flag=0
+    for person in people:
+        for i in range(len(boats)):
+            if boats[i]+person<=limit:
+                boats[i]+=person
+                flag=1
+        if flag==0:
+            boats.append(person)
+        flag=0
+        
+    print(boats)
+    return len(boats)
+
+def rescue_boats(people, limit):
+    people.sort()
+    left, right = 0, len(people) - 1
+    boats = 0
+    
+    while left <= right:
+        if people[left] + people[right] <= limit:
+            left += 1  # pair lightest with heaviest
+        right -= 1
+        boats += 1
+    
+    return boats
+
+
+people = [3, 4, 5, 3, 4]
+limit = 6
+print(rescue_boats(people, limit))
+
+people = [3, 2,2,1,1]
+limit = 3
+print(rescue_boats(people, limit))
+
+people = [2,1,1]
+limit = 3
+print(rescue_boats(people, limit))
