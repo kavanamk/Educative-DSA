@@ -1,0 +1,15 @@
+def remove_duplicates(s):
+    stack = []
+    for ch in s:
+        if stack and stack[-1] == ch:
+            stack.pop()
+        else:
+            stack.append(ch)
+    return ''.join(stack)
+
+# Test
+s = "azzy"
+print(remove_duplicates(s))  # Output: "ay"
+
+s2 = "abbaca"
+print(remove_duplicates(s2))  # Output: "ca"
