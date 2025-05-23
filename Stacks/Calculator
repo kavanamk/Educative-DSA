@@ -1,0 +1,44 @@
+def calculate(a, b, op):
+    if op == '+':
+        return a + b
+    elif op == '-':
+        return a - b
+    elif op == '*':
+        return a * b
+    elif op == '/':
+        return a // b  # integer division
+
+def calculator(s):
+    op_stack = []
+    num_stack = []
+    i = 0
+    while i < len(s):
+        ch = s[i]
+        if ch == ' ':
+            i += 1
+            continue
+        elif ch == '(':
+            pass
+        elif ch in '+-*/':
+            op_stack.append(ch)
+        elif ch == ')':
+            b = num_stack.pop()
+            a = num_stack.pop()
+            op = op_stack.pop()
+            result = calculate(a, b, op)
+            num_stack.append(result)
+        else:
+            # Handle multi-digit numbers
+            num = 0
+            while i < len(s) and s[i].isdigit():
+                num = num * 10 + int(s[i])
+                i += 1
+            num_stack.append(num)
+            continue  # skip i increment here to avoid skipping next char
+        i += 1
+    return num_stack.pop()
+
+# Test input
+s = "((46-12)+(13-8))"
+ans = calculator(s)
+print(ans)  # Output: 39
