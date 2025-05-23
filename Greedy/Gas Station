@@ -9,12 +9,14 @@ def gas_station_journey(gas, cost):
     n=len(gas)
     for start_index in range(0,n):
         total_gas=0
+        valid=True
         cur_indices=generate_indices(n, start_index)
         for cur_index in cur_indices:
             total_gas+=gas[cur_index]-cost[cur_index]
             if total_gas<0:
+                valid=False
                 break
-        if total_gas==0:
+        if valid:
             return start_index
         
         
