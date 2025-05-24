@@ -149,7 +149,7 @@ All Paths From Source to Target
 Sudoku Solver
 Matchsticks to Square
 
-##Dynamic Programming
+## Dynamic Programming
 
 0/1 Knapsack
 Coin Change
@@ -246,7 +246,7 @@ Reorder Routes to Make All Paths Lead to the City Zero
 Mock interview
 Graphs
 
-##Tree Depth-First Search
+## Tree Depth-First Search
 
 Flatten Binary Tree to Linked List
 Diameter of Binary Tree
@@ -264,10 +264,9 @@ Height of Binary Tree After Subtree Removal Queries
 Delete Nodes And Return Forest
 Maximum Depth of Binary Tree
 Kth Smallest Element in a BST
-Tree Breadth-First Search
 
+## Tree Breadth-First Search
 
-Introduction to Tree Breadth-First Search
 Binary Tree Level Order Traversal
 Binary Tree Zigzag Level Order Traversal
 Populating Next Right Pointers in Each Node
@@ -276,10 +275,8 @@ Symmetric Tree
 Word Ladder
 Two Sum IV – Input Is a BST
 Connect All Siblings of a Binary Tree
-Mock interview
-Tree Breadth First Search
 
-##Trie
+## Trie
 
 Implement Trie (Prefix Tree)
 Search Suggestions System
@@ -292,7 +289,7 @@ Index Pairs of a String
 K-th Smallest in Lexicographical Order
 Lexicographical Numbers
 
-##Hash Maps
+## Hash Maps
 
 Design HashMap
 Fraction to Recurring Decimal
@@ -313,7 +310,7 @@ Longest Happy Prefix
 Find Longest Self-Contained Substring
 Longest Palindrome
 
-##Knowing What to Track
+## Knowing What to Track
 
 Palindrome Permutation
 Valid Anagram
@@ -347,7 +344,7 @@ Evaluate Division
 Mock interview
 Union Find
 
-##Custom Data Structures
+## Custom Data Structures
 
 Snapshot Array
 Time Based Key-Value Store
@@ -363,7 +360,7 @@ Two Sum III - Data structure design
 Range Sum Query - Immutable
 LFU Cache
 
-##Bitwise Manipulation
+## Bitwise Manipulation
 
 Find the Difference
 Complement of Base 10 Integer
