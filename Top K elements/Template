@@ -1,0 +1,15 @@
+FUNCTION findTopKElements(arr, k):
+  # Initialize a min heap
+  minHeap = new MinHeap()
+
+  # Insert the first k elements into the heap
+  FOR i FROM 0 TO k - 1:
+    minHeap.insert(arr[i])
+
+  # Process the remaining elements
+  FOR i FROM k TO length of arr - 1:
+    IF arr[i] > minHeap.peek():  # Compare with the smallest in heap
+      minHeap.extractMin()  # Remove the smallest element
+      minHeap.insert(arr[i])  # Insert the new larger element
+
+  RETURN minHeap.toList()  # Convert heap to list and return
