@@ -1,0 +1,28 @@
+def k_smallest_number(lists, k):
+    heap = []
+    num_of_elem=0
+    max_elem=0
+
+    # Initialize heap with the first element of each list
+    for i, list_ in enumerate(lists):
+        num_of_elem+=len(list_)
+        
+        if list_:  # check if list is not empty
+            if max_elem<max(list_):
+                max_elem=max(list_)
+            heap.append([list_[0], i])
+            lists[i] = list_[1:]  # pop(0) is inefficient, use slicing instead
+    if k>num_of_elem:
+        return max_elem
+
+    heapify(heap)
+
+    while k > 1:  # Fix off-by-one: we want the k-th element at the end
+        top, idx = heappop(heap)
+        if lists[idx]:
+            heappush(heap, [lists[idx][0], idx])
+            lists[idx] = lists[idx][1:]
+        k -= 1
+
+    # k == 1 now; return the k-th element
+    return heappop(heap)[0]
