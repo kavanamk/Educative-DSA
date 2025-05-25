@@ -1,0 +1,15 @@
+from heapq import *
+
+def top_k_elements(nums, k):
+    heap = nums[:k]
+    heapify(heap)
+    
+    for i in range(k, len(nums)):
+        if nums[i] > heap[0]:
+            heappop(heap)
+            heappush(heap, nums[i])
+    
+    return sorted(heap, reverse=True)
+
+nums = [3, 5, 9, 4, 2, 12, 15]
+print(top_k_elements(nums, k=3))
