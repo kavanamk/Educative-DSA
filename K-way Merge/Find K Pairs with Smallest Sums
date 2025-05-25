@@ -1,0 +1,30 @@
+from heapq import *
+
+def k_smallest_pairs(list1, list2, k):
+    result = []
+    if not list1 or not list2 or k <= 0:
+        return result
+
+    heap = []
+
+    # Step 1: Initialize the heap with pairs (list1[i] + list2[0], i, 0)
+    for i in range(min(k, len(list1))):
+        heappush(heap, (list1[i] + list2[0], i, 0))
+
+    # Step 2: Extract the k smallest pairs
+    while heap and len(result) < k:
+        current_sum, i, j = heappop(heap)
+        result.append([list1[i], list2[j]])
+
+        # Step 3: Move forward in list2 for the same i (i.e., pair list1[i] with list2[j+1])
+        if j + 1 < len(list2):
+            next_sum = list1[i] + list2[j + 1]
+            heappush(heap, (next_sum, i, j + 1))
+
+    return result
+
+list1 = [1, 11, 20, 35, 300]
+list2 = [1, 2, 300]
+k = 5
+
+print(k_smallest_pairs(list1, list2, k))
