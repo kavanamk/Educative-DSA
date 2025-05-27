@@ -1,0 +1,14 @@
+def find_subsets(nums):
+    subsets=[[]]
+    for num in nums:
+        newSubsets=[]
+        for subset in subsets:
+            newSubsets.append(subset+[num])
+        subsets+=newSubsets
+        
+    return subsets
+    
+    
+nums=[1,2,3]
+ans=find_subsets(nums)
+print(ans)
