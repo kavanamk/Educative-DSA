@@ -1,0 +1,31 @@
+def binary_search_recursive(nums, target, low, high):
+    if low > high:
+        return -1
+
+    mid = (low + high) // 2
+    if nums[mid] == target:
+        # Check if it's the first occurrence
+        if mid == 0 or nums[mid - 1] < target:
+            return mid
+        else:
+            return binary_search_recursive(nums, target, low, mid - 1)
+    elif nums[mid] < target:
+        return binary_search_recursive(nums, target, mid + 1, high)
+    else:
+        return binary_search_recursive(nums, target, low, mid - 1)
+
+        
+
+def target_indices(nums, target):
+
+    # Replace the following placeholder return statement with your code
+    res=[]
+    nums.sort()
+    n=len(nums)
+    first_idx = binary_search_recursive(nums, target, 0, n-1)
+    for i in range(first_idx,len(nums)):
+        if nums[i]==target:
+            res.append(i)
+        else:
+            break
+    return res
