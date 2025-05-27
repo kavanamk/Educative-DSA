@@ -1,0 +1,31 @@
+
+from functools import reduce
+def letter_combinations(digits):
+    # Replace this placeholder return statement with your code
+    if digits=="":
+        return []
+    phone={ 
+           1:'',
+           2:'abc',
+           3:'def',
+           4:'ghi',
+           5:'jkl',
+           6:'mno',
+           7:'pqrs',
+           8:'tuv',
+           9:'wxyz'}
+    
+    subsets=[""]
+    for digit in digits:
+        int_digit=int(digit)
+        newSubset=[]
+        for subset in subsets:
+            for ch in phone[int_digit]:
+                newSubset.append(subset+ch)
+        subsets=newSubset
+    
+    return subsets
+
+digits="23"
+ans=letter_combinations(digits)
+print(ans)
