@@ -1,0 +1,52 @@
+def find_the_distance_value(arr1, arr2, d): 
+    arr2.sort()  # Sort arr2
+    distance = 0
+    
+    for i in range(len(arr1)):
+        # Binary search to find the closest element
+        left, right = 0, len(arr2) - 1
+        valid = True
+        
+        # Binary search to find the closest higher or equal element
+        while left <= right:
+            mid = (left + right) // 2
+            if arr2[mid] == arr1[i]:
+                valid = False
+                break
+            elif arr2[mid] < arr1[i]:
+                left = mid + 1
+            else:
+                right = mid - 1
+
+        # Check the closest higher or equal element
+        if left < len(arr2) and abs(arr2[left] - arr1[i]) <= d:
+            valid = False
+        # Check the closest lower element
+        if right >= 0 and abs(arr2[right] - arr1[i]) <= d:
+            valid = False
+        
+        if valid:
+            distance += 1
+    
+    return distance
+
+# Driver code
+def main():
+    test_cases = [
+        ([3, 5, 7, 9], [1, 2, 3, 4], 2),
+        ([-3, -5, -7, -9], [-1, -2, -3, -4], 2),
+        ([3, -5, 7, -9], [-1, 2, -3, 4], 4),
+        ([100, 200, 300], [400, 500, 600], 100),
+        ([0, -2, 4, -6], [-8, 10, -12, 14], 1),
+         ([5], [3], 1), 
+        ([10], [-5, -10, -15, -20, -25], 5)  
+    ]
+
+    for i, (arr1, arr2, d) in enumerate(test_cases, start=1):
+        print(f"{i}.\t arr1: {arr1}, arr2: {arr2}, d: {d}")
+        result = find_the_distance_value(arr1, arr2, d)
+        print(f"\t Distance value: {result}")
+        print("-" * 100)
+
+if __name__ == "__main__":
+    main()
