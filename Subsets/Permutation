@@ -1,0 +1,20 @@
+def swap_ch(word, i, j):
+    word=list(word)
+    word[i],word[j]=word[j],word[i]
+    return ''.join(word)
+
+def permutation(word,cur_idx,result):
+    if cur_idx==len(word):
+        result.add(word)
+        return
+    for i in range(cur_idx,len(word)):
+        swapped_word=swap_ch(word, cur_idx, i)
+        permutation(swapped_word, cur_idx+1, result)
+
+# Driver code
+word = 'bad'
+cur_idx = 0
+result = set()
+
+permutation(word, cur_idx, result)
+print(result)
