@@ -1,0 +1,39 @@
+class BadVersion:
+    def __init__(self, v):
+        self.bad_version = v
+
+    def is_bad_version(self, version):
+        return version >= self.bad_version
+
+from bad_version import BadVersion
+
+class Solution(BadVersion):
+    
+    def first_bad_version(self, n):
+        first = 1
+        last = n
+        
+        while first <= last:  
+            mid = first + (last - first) // 2;
+    
+            if self.is_bad_version(mid):  
+                last = mid - 1
+            else:
+                first = mid + 1
+            
+        return first
+
+
+# Driver code
+def main():
+    versions = [6, 8, 9, 11, 8]
+    bad_versions = [3, 5, 1, 11, 4]
+
+    for i in range(len(versions)):
+        solution = Solution(bad_versions[i])
+        print(i + 1,  ".\tNumber of versions: ", versions[i], sep="")
+        print("\n\tFirst bad version: ", solution.first_bad_version(versions[i]))
+        print("-"*100)
+
+if __name__ == '__main__':
+    main()
