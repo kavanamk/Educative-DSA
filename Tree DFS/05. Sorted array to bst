@@ -1,0 +1,30 @@
+
+
+class TreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+def sorted_array_to_bst(arr):
+    if not arr:
+        return None
+
+    mid = len(arr) // 2
+    root = TreeNode(arr[mid])
+
+    root.left = sorted_array_to_bst(arr[:mid])
+    root.right = sorted_array_to_bst(arr[mid+1:])
+
+    return root
+arr = [-10, -3, 0, 5, 9]
+root = sorted_array_to_bst(arr)
+
+# Optional: Print in-order traversal to verify BST
+def inorder(node):
+    if node:
+        inorder(node.left)
+        print(node.data, end=' ')
+        inorder(node.right)
+
+inorder(root)  # Output: -10 -3 0 5 9
