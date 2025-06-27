@@ -1,0 +1,7 @@
+def topologicalSort(graph, node, stack, visited):
+    if node not in visited:
+        visited.add(node)
+        for neighbour in graph[node]:
+            topologicalSort(graph, neighbour, stack, visited)
+        stack.append(node)
+    return stack
