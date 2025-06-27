@@ -1,0 +1,21 @@
+def dijkstra(graph, start):
+    # Step 1: Min-heap priority queue and distance dictionary
+    heap = [(0, start)]  # (distance, node)
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+
+    while heap:
+        current_dist, current_node = heapq.heappop(heap)
+
+        # Skip if we already found a better path
+        if current_dist > distances[current_node]:
+            continue
+
+        # Step 2: Explore neighbors
+        for neighbor, weight in graph[current_node]:
+            distance = current_dist + weight
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(heap, (distance, neighbor))
+
+    return distances
