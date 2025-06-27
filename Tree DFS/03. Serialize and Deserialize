@@ -1,0 +1,74 @@
+# Definition for a binary tree node
+class TreeNode:
+    def __init__(self, data):
+         self.data = data
+         self.left = None
+         self.right = None
+
+def is_leaf(root):
+    if root.left is None and root.right is None:
+        return True
+    return False
+
+
+
+
+
+def serialize_preorder(root):
+    result = []
+
+    def dfs(node):
+        if node is None:
+            result.append(None)
+            return
+        result.append(node.data)
+        dfs(node.left)
+        dfs(node.right)
+
+    dfs(root)
+    return result
+
+def deserialize_preorder(data):
+    def helper(index):
+        if index[0] >= len(data):
+            return None
+
+        val = data[index[0]]
+        index[0] += 1
+
+        if val is None:
+            return None
+
+        node = TreeNode(val)
+        node.left = helper(index)
+        node.right = helper(index)
+        return node
+
+    return helper([0])  # use a list to pass index by reference
+
+
+# Original Tree:
+#     1
+#    / \
+#   2   3
+#  /     \
+# 4       5
+
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.right = TreeNode(3)
+root.left.left = TreeNode(4)
+root.right.right = TreeNode(5)
+
+# Serialize
+preorder_data = serialize_preorder(root)
+print("Serialized:", preorder_data)
+# Output: [1, 2, 4, None, None, None, 3, None, 5, None, None]
+
+# Deserialize
+new_root = deserialize_preorder(preorder_data)
+
+# Verify by re-serializing
+print("Re-Serialized:", serialize_preorder(new_root))
+
+
