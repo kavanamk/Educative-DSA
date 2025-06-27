@@ -1,0 +1,27 @@
+from ds_v1.BinaryTree.BinaryTree import TreeNode
+# Definition for a binary tree node
+# class TreeNode:
+#     def __init__(self, data):
+#         self.data = data
+#         self.left = None
+#         self.right = None
+
+
+
+def height_nodes(root):
+    if root is None:
+        return 0
+    
+    left_height = height_nodes(root.left)
+    right_height = height_nodes(root.right)
+    
+    return 1 + max(left_height, right_height)
+
+
+
+def diameter_of_binaryTree(root):
+    left_height = height_nodes(root.left)
+    right_height=height_nodes(root.right)
+    return left_height+right_height
+    
+
