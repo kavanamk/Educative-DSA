@@ -1,0 +1,17 @@
+def climbStairs(n):
+    if n <= 1:
+        return 1
+    
+    prev2 = 1  # f(0)
+    prev1 = 1  # f(1)
+
+    for i in range(2, n + 1):
+        curr = prev1 + prev2
+        prev2 = prev1
+        prev1 = curr
+
+    return prev1
+print(climbStairs(5))  # Output: 8
+
+Ways: [1+1+1+1+1], [1+1+1+2], [1+2+1+1], [2+1+1+1], [2+2+1], [1+2+2], [1+1+2+1], [1+1+1+2]
+
