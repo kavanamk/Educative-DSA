@@ -1,0 +1,20 @@
+def high_five(items): 
+    d = {}
+    for item in items:
+        if item[0] not in d:
+            d[item[0]] = []
+        d[item[0]].append(item[1])
+        
+    ans = []
+    for sid, scores in d.items():
+        scores.sort(reverse=True)  # sort descending to get top 5
+        avg = sum(scores[:5]) // 5
+        ans.append([sid, avg])
+        
+    return sorted(ans)  # sort by student ID if needed
+
+
+
+items = [[1, 88], [1, 92], [1, 84], [2, 99], [2, 93], [2, 85], [1, 96], [2, 100], [1, 91], [2, 75], [1, 82], [2, 88]]
+
+print(high_five(items))
