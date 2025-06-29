@@ -1,0 +1,15 @@
+class SparseVector:
+    def __init__(self, nums):
+        # Store only non-zero elements with their indices
+        self.data = {i: num for i, num in enumerate(nums) if num != 0}
+
+    def dot_product(self, vec):
+        ans = 0
+        # Only iterate over keys that exist in self.data
+        for i, val in self.data.items():
+            if i in vec.data:
+                ans += val * vec.data[i]
+        return ans
+v1 = SparseVector([1, 0, 0, 2, 3])
+v2 = SparseVector([0, 3, 0, 4, 0])
+print(v1.dot_product(v2))  # Output: 8 (2*4)
