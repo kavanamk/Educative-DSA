@@ -1,0 +1,25 @@
+from collections import defaultdict
+
+
+def get_hint(secret, guess): 
+    ds = defaultdict(int)
+    dg = defaultdict(int)
+    bull = 0
+
+    for i in range(len(secret)):
+        if secret[i] == guess[i]:
+            bull += 1
+        else:
+            ds[secret[i]] += 1
+            dg[guess[i]] += 1
+
+    cow = 0
+    for key in ds:
+        if key in dg:
+            cow += min(ds[key], dg[key])
+
+    return str(bull) + 'A' + str(cow) + 'B'
+
+
+print(get_hint("1234", "4321"))
+        
