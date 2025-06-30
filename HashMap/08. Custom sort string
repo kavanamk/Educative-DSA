@@ -1,0 +1,22 @@
+def custom_sort_string(order, s):
+   
+    # Replace this placeholder return statement with your code\
+    d={}
+    for ch in order:
+        d[ch]=0
+        
+    rest_of_the_letters=''
+    for ch in s:
+        if ch in d.keys():
+            d[ch]+=1
+        else:
+            rest_of_the_letters+=ch
+        
+    if sum(d.values())==0:
+        return s
+    
+    ordered_letters=''
+    for key,val in d.items():
+        ordered_letters+=key * val
+            
+    return ordered_letters+rest_of_the_letters
