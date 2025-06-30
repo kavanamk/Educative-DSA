@@ -1,0 +1,58 @@
+from collections import defaultdict
+
+def dfs(grid, row, col, row_origin, column_origin, path, visited):
+    # Base case: out of bounds or already visited or water
+    if (row < 0 or col < 0 or row >= len(grid) or col >= len(grid[0]) or 
+        (row, col) in visited or grid[row][col] == 0):
+        return
+    
+    # Mark the current cell as visited
+    visited.add((row, col))
+    
+    # Record the relative position of this cell from the origin of this island
+    path.append((row - row_origin, col - column_origin))
+    
+    # Explore 4-directionally (up, down, left, right)
+    dfs(grid, row + 1, col, row_origin, column_origin, path, visited)
+    dfs(grid, row - 1, col, row_origin, column_origin, path, visited)
+    dfs(grid, row, col + 1, row_origin, column_origin, path, visited)
+    dfs(grid, row, col - 1, row_origin, column_origin, path, visited)
+
+def num_distinct_islands(grid):
+    # Initialize a set to keep track of visited cells
+    visited = set()
+    
+    # Use defaultdict to count the distinct island shapes
+    unique_islands = defaultdict(int)
+    
+    for row in range(len(grid)):
+        for col in range(len(grid[0])):
+            # Start DFS if it's a land cell and not yet visited
+            if grid[row][col] == 1 and (row, col) not in visited:
+                path = []
+                
+                # Perform DFS to collect the relative positions (shape) of the island
+                dfs(grid, row, col, row, col, path, visited)
+                
+                # Convert the path to a tuple and use it as the key in the defaultdict
+                unique_islands[tuple(path)] += 1
+    
+    # The number of unique keys in the defaultdict gives the number of distinct islands
+    return len(unique_islands)
+
+
+if __name__ == '__main__':
+    grids = [[[1, 1, 0, 0, 1], [1, 0, 0, 0, 0], [0, 0, 0, 1, 1], [1, 1, 0, 1, 1]],
+            [[1, 1, 0, 1, 1], [1, 0, 0, 0, 1], [0, 0, 1, 0, 0], [1, 1, 1, 1, 1]],
+            [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
+            [[1, 1, 1], [1, 1, 1], [1, 1, 1]],
+            [[1, 0, 0, 1],[1, 1, 0, 1],[0, 0, 0, 0],[1, 0, 0, 1],[1, 0, 0, 1]]
+    ]
+    
+    for i in range(len(grids)):
+        print(i+1, ".\tGrid:")
+        for row in grids[i]:
+          print("\t  ", row)
+        print()
+        print("\tNumber of distinct island(s):", num_distinct_islands(grids[i]))
+        print("-" * 100)
