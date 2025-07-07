@@ -1,0 +1,30 @@
+def min_remove_parentheses(s):
+    stack = []
+    s_list = list(s)
+    
+    for i, val in enumerate(s):
+        if len(stack) > 0 and stack[-1][0] == '(' and val == ')':
+            stack.pop()
+
+        elif val == '(' or val == ')':
+            stack.append([val, i])
+
+    for p in stack:
+        s_list[p[1]] = ""
+    
+    result = ''.join(s_list)
+   
+    return result
+
+# Driver code
+def main():
+    inputs = ["ar)ab(abc)abd(", "a)rt)lm(ikgh)", "aq)xy())qf(a(ba)q)", 
+    "(aw))kk())(w(aa)(bv(wt)r)",  "(qi)(kl)((y(yt))(r(q(g)s)"]
+    for i in range(len(inputs)):
+        print(i + 1, ". Input: \"", inputs[i], "\"", sep="")
+        print("   Valid parentheses, after minimum removal: \"", \
+         min_remove_parentheses(inputs[i]), "\"", sep="")
+        print("-" * 100)
+
+if __name__ == "__main__":
+    main()
