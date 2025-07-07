@@ -1,0 +1,30 @@
+def permUnique(nums):
+    res=[]
+    perm=[]
+    count={}
+    for num in nums:
+        if num not in count:
+            count[num]=1
+        else:
+            count[num]+=1
+            
+    def dfs():
+        if len(perm)==len(nums):
+            res.append(perm.copy())
+            return
+        
+        for num in count.keys():
+            if count[num]>0:
+                perm.append(num)
+                count[num]-=1
+                dfs()
+                count[num]+=1
+                perm.pop()
+        
+    dfs()
+    return res
+            
+    
+    
+nums=[1,1,2]
+print(permUnique(nums))
