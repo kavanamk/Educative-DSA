@@ -1,0 +1,14 @@
+def remove_adjacent_duplicates(s):
+    stack = []
+
+    for char in s:
+        if stack and stack[-1] == char:
+            stack.pop()  # Remove the duplicate
+        else:
+            stack.append(char)  # Add new char
+
+    return ''.join(stack)  # Form string from stack
+
+
+print(remove_adjacent_duplicates("abbaca"))  # Output: "ca"
+print(remove_adjacent_duplicates("azxxzy"))  # Output: "ay"
