@@ -1,0 +1,28 @@
+def decode_string(s):
+    numstack = []
+    parenthesis_stack = []
+    substr_stack = []
+    substr = ""
+    num = 0
+
+    for c in s:
+        if c.isdigit():
+            num = num * 10 + int(c)  # Handle multi-digit numbers
+        elif c == '[':
+            numstack.append(num)
+            parenthesis_stack.append('[')
+            substr_stack.append(substr)
+            substr = ""
+            num = 0
+        elif c == ']':
+            parenthesis_stack.pop()  # still included per your logic
+            repeat = numstack.pop()
+            prev = substr_stack.pop()
+            substr = prev + repeat * substr
+        else:
+            substr += c
+
+    return substr
+
+s = '2[ax2[fw]]3[a]'
+print(decode_string(s))  # ✅ Output: axfwfwaxfwfwaaa
