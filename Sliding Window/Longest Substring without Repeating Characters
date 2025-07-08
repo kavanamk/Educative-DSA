@@ -1,0 +1,20 @@
+def find_longest_substring(s):
+    dw = {}         # Dictionary to store characters and their last seen index
+    l = 0           # Left pointer of the window
+    max_len = 0     # Track the max length found
+
+    for r in range(len(s)):
+        c = s[r]
+        
+        # If character is already in window and within current window bounds
+        if c in dw and dw[c] >= l:
+            l = dw[c] + 1  # Move left pointer just after last occurrence of c
+        
+        dw[c] = r  # Update the character's last seen index
+        max_len = max(max_len, r - l + 1)  # Update max length
+
+    return max_len
+
+
+input_str = "pwwkew"
+print(find_longest_substring(input_str))
