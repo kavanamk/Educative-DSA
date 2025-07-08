@@ -1,0 +1,46 @@
+def min_window(s: str, t: str) -> str:
+    if not t:
+        return ""
+
+    n = len(s)
+    min_window = [0, float('inf')]  # Store the start and end of the smallest window
+    l = 0  # Left pointer of the window
+
+    # Step 1: Count characters in t
+    dt = {}
+    for c in t:
+        dt[c] = dt.get(c, 0) + 1
+
+    # Step 2: Initialize window character counts and formed counter
+    dw = {}            # Dictionary to count characters in current window
+    formed = 0         # How many characters have reached the required count
+    required = len(dt) # Total unique characters needed
+
+    # Step 3: Expand the window with right pointer
+    for r in range(n):
+        c = s[r]
+
+        # If current char is needed, update its count in the window
+        if c in dt:
+            dw[c] = dw.get(c, 0) + 1
+            # If this char’s count matches the required count, increase formed
+            if dw[c] == dt[c]:
+                formed += 1
+
+        # Step 4: Contract window from the left while valid
+        while formed == required:
+            # Update the result if current window is smaller
+            if r - l < min_window[1] - min_window[0]:
+                min_window = [l, r]
+
+            # Prepare to move the left pointer forward
+            if s[l] in dt:
+                dw[s[l]] -= 1
+                # If a required char drops below needed count, decrease formed
+                if dw[s[l]] < dt[s[l]]:
+                    formed -= 1
+            l += 1  # Move left pointer forward
+
+    # Step 5: Extract and return result
+    start, end = min_window
+    return s[start:end+1] if end != float('inf') else ""
