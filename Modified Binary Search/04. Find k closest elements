@@ -1,0 +1,60 @@
+
+
+def binary_search_insert_pos(arr, target):
+    """
+    Finds the insert position (lower bound) for the target in the sorted array.
+    If target is present, returns its index.
+    If not, returns the index where it could be inserted to maintain order.
+    """
+    left, right = 0, len(arr)
+    while left < right:
+        mid = (left + right) // 2
+        if arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid
+    return left  # This is the first index where arr[index] >= target
+
+
+def find_closest_elements(nums, k, target):
+    """
+    Finds the k closest elements to the target in a sorted array.
+    If there's a tie in distance, the smaller number is preferred.
+    """
+    # Step 1: Find insertion position using binary search
+    left = binary_search_insert_pos(nums, target) - 1  # left pointer (smaller side)
+    right = left + 1                                   # right pointer (larger side)
+
+    res = []
+
+    # Step 2: Expand window of size k from around the insert position
+    while k > 0:
+        # Case 1: Left is out of bounds, take from right
+        if left < 0:
+            res.append(nums[right])
+            right += 1
+        # Case 2: Right is out of bounds, take from left
+        elif right >= len(nums):
+            res.append(nums[left])
+            left -= 1
+        # Case 3: Both pointers are valid — choose closer one
+        else:
+            # Prefer the smaller one if equal distance
+            if abs(nums[left] - target) <= abs(nums[right] - target):
+                res.append(nums[left])
+                left -= 1
+            else:
+                res.append(nums[right])
+                right += 1
+        k -= 1
+
+    # Step 3: Return the result sorted in ascending order
+    return sorted(res)
+
+
+# 🔍 Example usage
+nums = [1, 2, 3, 4, 5]
+k = 4
+target = 3
+
+print(find_closest_elements(nums, k, target))  # Output: [1, 2, 3, 4]
