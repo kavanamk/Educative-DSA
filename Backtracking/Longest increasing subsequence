@@ -1,0 +1,35 @@
+def LIS_recursive(prev, A):
+    if not A:
+        return 0
+    elif A[0] <= prev:
+        # Can't include A[0], move to next element
+        return LIS_recursive(prev, A[1:])
+    else:
+        # Option 1: skip A[0]
+        skip = LIS_recursive(prev, A[1:])
+        # Option 2: take A[0]
+        take = 1 + LIS_recursive(A[0], A[1:])
+        return max(skip, take)
+    
+arr = [10, 9, 2, 5, 3, 7, 101, 18]
+print("Length of LIS:", LIS_recursive(float('-inf'), arr))  # Output: 4
+
+
+def LIS_index_based(A):
+    n=len(A) 
+    A=[float('-inf')]+ A
+    
+    def LIS_backtrack(i,j):
+        if j>n:
+            return 0
+        elif A[i]>=A[j]:
+            return LIS_backtrack(i, j+1)
+        else:
+            skip = LIS_backtrack(i, j+1)   
+            take = 1 + LIS_backtrack(j, j+1)
+            return max(skip,take)
+            
+    return LIS_backtrack(0,1)
+    
+arr = [3, 10, 2, 1, 20]
+print("Length of LIS:", LIS_index_based(arr))  # Output: 3 (e.g., [3, 10, 20])
