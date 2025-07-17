@@ -1,0 +1,27 @@
+def merge_intervals(intervals):
+    if len(intervals) <= 1:
+        return intervals
+
+    # Step 1: Sort intervals by start time
+    intervals.sort(key=lambda x: x[0])
+    
+    output = []
+    cur_st, cur_et = intervals[0]
+    
+    for st, et in intervals[1:]:
+        if st <= cur_et:
+            # Overlap: merge intervals
+            cur_et = max(cur_et, et)
+        else:
+            # No overlap: save previous interval
+            output.append([cur_st, cur_et])
+            cur_st, cur_et = st, et
+    
+    # Append last interval
+    output.append([cur_st, cur_et])
+    
+    return output
+
+
+intervals= [ [1, 6], [2, 4] ,[3,9],[10,11]]
+print(merge_intervals(intervals))
