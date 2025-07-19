@@ -1,0 +1,33 @@
+def triangularSum(nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums)<=1:
+            return nums
+    
+        
+        def recursiveTriSum(arr):
+            if len(arr) == 1:
+                return arr[0]
+            newArr = [(arr[i] + arr[i+1]) % 10 for i in range(len(arr)-1)]
+            return recursiveTriSum(newArr)
+                    
+        
+        return recursiveTriSum(nums)
+        
+
+nums=[1,2,3,4,5]
+print(triangularSum(nums))
+
+"""Testcases:
+nums=[1]
+nums=[]
+nums=[1,2,3] : odd
+nums=[1,2,3,4] :even
+nums = [9,6,4,3]
+nums=[0,0,0,0]
+
+Time complexity: O(n^2)
+Space complexity: O(n) : stack
+    """
