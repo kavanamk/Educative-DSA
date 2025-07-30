@@ -1,0 +1,58 @@
+# merge all intervals
+#find diff bw the intervals -> returned
+
+def merge_intervals(nums):
+    nums.sort(key=lamda x:x[0])
+    output=[]
+    f len(nums)<=1:
+        return output
+    c_st,c_et=nums[0]
+    for st, et in nums[1:]:
+        if st<c_et:
+            c_et=max(et,c_et)
+        else:
+            output.append([c_st,c_et])
+            c_st,c_et=st,et
+        output.append([c_st,c_et])
+    return output
+
+def list_of_schedule(schedule):
+    2d_sch=[]
+    for emp_sch in schedule:
+        for sch in emp_sch:
+            2d_sch.append(sch)
+    return 2d_sch
+
+
+
+def employee_free_time(schedule):
+    schedule_list = list_of_schedule(schedule)
+    merged_schedule = merge_intervals(schedule)
+    
+    free_time=[[]]
+    if len(merged_schedule)<=1:
+        return free_time
+    c_st,c_et=merged_schedule[0]
+    for st,et in merge_schedule[1:]:
+        free_time.append(c_et,st)
+        c_st,c_et=st,et
+    return free_time
+
+schedule= [[[3, 5], [8, 10]], [[4, 6], [9, 12]], [[5, 6], [8, 10]]]
+# sorted -> [[[3, 5], [4, 6],[5, 6], [8, 10], [9, 12]
+#merge -> [3,6],[8,12]
+# difference: output = [[6,8]]
+
+ans=employee_free_time(schedule)
+print(ans)
+
+#time complexity = O(nlogn)
+
+#Test cases:
+    
+# [[]]
+# [[[2,5]]]
+# free time
+# no free time
+# 
+    
