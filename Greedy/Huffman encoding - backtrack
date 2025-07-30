@@ -1,0 +1,93 @@
+import heapq
+
+def huffmanEncoding(s):
+    # Count frequencies
+    freq = {}
+    for ch in s:
+        if ch not in freq:
+            freq[ch] = 1
+        else:
+            freq[ch] += 1
+
+    # Create initial heap: [freq, char]
+    freq_list = []
+    for key, val in freq.items():
+        freq_list.append([val, key])
+    heapq.heapify(freq_list)
+
+    # Combine nodes to build the tree
+    tree_nodes = []
+    parent_map = {}  # child -> (parent_string, 0 or 1)
+
+    while len(freq_list) >= 2:
+        left = heapq.heappop(freq_list)
+        right = heapq.heappop(freq_list)
+        combined = [left[0] + right[0], left[1] + right[1]]
+        heapq.heappush(freq_list, combined)
+
+        # Track the tree structure flatly
+        tree_nodes.append(left)
+        tree_nodes.append(right)
+        tree_nodes.append(combined)
+
+        # Save parent pointers with direction
+        parent_map[left[1]] = (combined[1], '0')
+        parent_map[right[1]] = (combined[1], '1')
+
+    print("Tree Nodes:")
+    for node in tree_nodes:
+        print(node)
+
+    # Backtrack to build Huffman codes
+    codes = {}
+    for ch in freq.keys():
+        code = ''
+        curr = ch
+        while curr in parent_map:
+            parent, direction = parent_map[curr]
+            code = direction + code
+            curr = parent
+        codes[ch] = code
+
+    print("\nHuffman Codes:")
+    for ch, code in codes.items():
+        print(f"'{ch}': {code}")
+
+    return codes
+
+# Example usage
+s = "tttennsseeeioo"
+huffmanEncoding(s)
+
+
+"""
+{
+ 't': '01',
+ 'e': '11',
+ 'n': '001',
+ 's': '100',
+ 'i': '000',
+ 'o': '101'
+}
+
+"""
+
+
+1. Count frequency of each character → freq_map
+
+2. Create min-heap with [freq, char] for each char in freq_map
+
+3. While heap has more than 1 node:
+    a. Pop 2 nodes with smallest freq → left, right
+    b. Combine into new node: [left.freq + right.freq, left.chars + right.chars]
+    c. Push combined node back into heap
+    d. Record:
+       - parent_map[left.chars] = (combined.chars, '0')
+       - parent_map[right.chars] = (combined.chars, '1')
+
+4. For each character:
+    a. Walk up parent_map to root
+    b. Collect directions ('0' or '1') to form Huffman code
+    c. Reverse code → save to codes[char]
+
+5. Return codes
