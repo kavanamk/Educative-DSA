@@ -1,0 +1,28 @@
+# merge all intervals
+#find diff bw the intervals -> returned
+
+def merge_intervals(nums):
+    nums.sort(key=lamda x:x[0])
+    output=[]
+    f len(nums)<=1:
+        return output
+    c_st,c_et=nums[0]
+    for st, et in nums[1:]:
+        if st<c_et:
+            c_et=max(et,c_et)
+        else:
+            output.append([c_st,c_et])
+            c_st,c_et=st,et
+        output.append([c_st,c_et])
+    return output
+
+def count_days(days, meetings):
+    
+    count = 0
+    merged_meetings=merge_intervals(meetings)
+    for st,et in merged_meetings:
+        count+=et-st
+    
+    return days-count
+        
+    
