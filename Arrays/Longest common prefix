@@ -1,0 +1,16 @@
+def longestCommonPrefix(strs):
+    strs.sort()
+    s1= strs[0]
+    s2=strs[-1]
+    ans=''
+    for c1,c2 in zip(s1,s2):
+        if c1==c2:
+            ans+=c1
+        else:
+            break
+    return ans
+        
+    
+    
+strs = ["flower","flow","flight"]
+print(longestCommonPrefix(strs))
