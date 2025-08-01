@@ -1,0 +1,9 @@
+def sumEvenNums(nums):
+    ans= [x for x in nums if x%2==0]
+    return sum(ans)
+
+nums = [1, 2, 3, 4, 5, 6]  
+#Output: 12  
+#Explanation: 2 + 4 + 6 = 12
+
+print(sumEvenNums(nums)) 
