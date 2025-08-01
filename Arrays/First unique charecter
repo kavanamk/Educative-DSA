@@ -1,0 +1,12 @@
+from collections import Counter
+
+
+def firstUniqChar(s):
+    freq = Counter(s)
+    for i,ch in enumerate(s):
+        if freq[ch]==1:
+            return i
+        
+
+s = "leetcodel"
+print(firstUniqChar(s))
