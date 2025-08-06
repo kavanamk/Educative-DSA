@@ -1,0 +1,14 @@
+def LetterCasePermutation(s):
+    output=[]
+    def backtrack(idx,modified_str):
+        if idx>=len(s):
+            output.append(modified_str)
+            return
+        if s[idx].isdigit():
+            idx+=1
+        backtrack(idx+1, s[0:idx]+s[idx].upper()+s[idx+1:])
+        backtrack(idx+1, s[0:idx]+s[idx].lower()+s[idx+1:])
+    backtrack(0, '')
+    return output
+
+print(LetterCasePermutation('c2d'))
