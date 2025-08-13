@@ -1,0 +1,62 @@
+# Definition for a Linked List node
+class ListNode:
+     def __init__(self, val=0, next=None):
+         self.val = val
+         self.next = next
+
+def print_list(head):
+    while head:
+        print(head.val, end=" -> " if head.next else "")
+        head = head.next
+    print()
+
+def reverse_list(head):
+    prev = None
+    cur = head
+    while cur:
+        nxt = cur.next
+        cur.next = prev
+        prev = cur
+        cur = nxt
+    return prev
+
+def get_middle(head):
+    slow = head
+    fast = head
+    while fast and fast.next:
+        fast = fast.next.next
+        slow = slow.next
+    return slow
+
+def reorder_list(head):
+    if not head or not head.next:
+        return head
+
+    # Step 1: Find middle
+    mid = get_middle(head)
+
+    # Step 2: Reverse the second half
+    second = reverse_list(mid.next)
+    mid.next = None  # break into two lists
+
+    # Step 3: Merge two halves
+    first = head
+    while second:
+        tmp1, tmp2 = first.next, second.next
+        first.next = second
+        second.next = tmp1
+        first, second = tmp1, tmp2
+
+    return head
+
+
+# Test case
+head = ListNode(1)
+head.next = ListNode(2)
+head.next.next = ListNode(3)
+head.next.next.next = ListNode(4)
+head.next.next.next.next = ListNode(5)
+head.next.next.next.next.next = ListNode(6)
+
+ans = reorder_list(head)
+print_list(ans)  # Expected: 1 -> 6 -> 2 -> 5 -> 3 -> 4
