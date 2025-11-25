@@ -1,0 +1,31 @@
+
+
+def LongestPali(s):
+    freq={}
+    for c in s:
+        if c in freq:
+            freq[c]+=1
+        else:
+            freq[c]=1
+    
+    odd_counts = []
+    ans=0
+    for key,val in freq.items():
+        if val %2==0:
+            ans+=val
+        else:
+            ans+=(val-val%2)
+            odd_counts.append(val%2)
+        
+    if len(odd_counts) >= 1:
+        ans += 1
+    
+    return ans
+
+    
+    
+    
+        
+
+s="aabbccdfdddxxx" #aabbccddddxxf
+print(LongestPali(s))
