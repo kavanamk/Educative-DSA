@@ -1,0 +1,21 @@
+def LSWRC(s):
+
+    left = 0
+    last_seen = {}   # char → index
+    max_len = 0
+
+    for right in range(len(s)):
+
+        c = s[right]
+
+        if c in last_seen AND last_seen[c] >= left:
+            # jump the left pointer forward
+            left = last_seen[c] + 1
+
+        # update last seen index
+        last_seen[c] = right
+
+        # window size = right - left + 1
+        max_len = max(max_len, right - left + 1)
+
+    return max_len
