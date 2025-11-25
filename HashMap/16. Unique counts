@@ -1,0 +1,25 @@
+arr = [1,2,2,1,1,3]
+
+def uniqueCounts(nums):
+    freq={}
+    for num in nums:
+        if num in freq:
+            freq[num]+=1
+        else:
+            freq[num]=1
+    
+    counts = []
+    for key,val in freq.items():
+        counts.append(val)
+    
+    return len(counts)==len(set(counts))
+
+
+def uniqueCounts(nums):
+    freq = {}
+    for num in nums:
+        freq[num] = freq.get(num, 0) + 1
+    return len(freq.values()) == len(set(freq.values()))
+
+
+print(uniqueCounts(arr))
