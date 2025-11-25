@@ -1,0 +1,29 @@
+import heapq
+
+def topKFrequent(nums, k):
+    freq = {}
+    for num in nums:
+        if num not in freq:
+            freq[num]=1
+        else:
+            freq[num]+=1
+    
+    freq_list=[]
+    for num, count in freq.items():
+        freq_list.append([-count, num])
+
+        
+    heapq.heapify(freq_list)
+    top_k_val=[]
+    for i in range(k):
+        weight,val = heapq.heappop(freq_list)
+        top_k_val.append(val)
+        
+    return top_k_val
+    
+        
+    
+    
+    
+nums=[1,1,1,2,2,3]
+print(topKFrequent(nums, k=2))
