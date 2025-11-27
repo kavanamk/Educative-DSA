@@ -1,0 +1,28 @@
+
+def WonderfulBruteForce(s):
+    substrings=[]
+    n=len(s)
+    for i in range(n):
+        for j in range(i,n):
+            substr=s[i:j+1]
+            if WonderfulLogic(substr):
+                substrings.append(substr)
+    print(substrings)
+    return len(substrings)
+
+def WonderfulLogic(s):
+    freq={}
+    for c in s:
+        if c not in freq:
+            freq[c]=1
+        else:
+            freq[c]+=1
+    odd_count=0
+    for key, val in freq.items():
+        if val%2!=0:
+            odd_count+=1
+    return odd_count<=1
+    
+    
+s="aabc"
+print(WonderfulBruteForce(s))
